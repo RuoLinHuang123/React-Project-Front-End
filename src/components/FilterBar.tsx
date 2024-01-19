@@ -11,16 +11,16 @@ const FilterBar = () => {
       mx="auto"
       padding="10px"
     >
-      <Box p="4" cursor="pointer" _hover={{ bg: "gray.100" }}>
+      <Box p="4" borderRadius={10} cursor="pointer" transition="background-color 0.2s" _hover={{ bg: "gray.100" }}>
         ALL
       </Box>
-      <Box p="4" cursor="pointer" _hover={{ bg: "gray.100" }}>
+      <Box p="4" borderRadius={10} cursor="pointer" transition="background-color 0.2s" _hover={{ bg: "gray.100" }}>
         Planet
       </Box>
-      <Box p="4" cursor="pointer" _hover={{ bg: "gray.100" }}>
+      <Box p="4" borderRadius={10} cursor="pointer" transition="background-color 0.2s" _hover={{ bg: "gray.100" }}>
         Dwarf Planet
       </Box>
-      <Box p="4" cursor="pointer" _hover={{ bg: "gray.100" }}>
+      <Box p="4" borderRadius={10} cursor="pointer" transition="background-color 0.2s" _hover={{ bg: "gray.100" }}>
         Satellite
       </Box>
     </Flex>
