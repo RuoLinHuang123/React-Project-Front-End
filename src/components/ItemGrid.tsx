@@ -4,11 +4,12 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Item from "./Item";
 import useSort from "./Sort";
+import useFilter from "./Filter";
 
 const ItemGrid = () => {
-
+  const {filter} = useFilter();
   const {order} = useSort();
-  let sortedData
+  let sortedData, sotedAndFilteredData
 
   const { data, error, isLoading } = useQuery<Item[], Error>({
     queryKey: ["items"],
@@ -40,8 +41,8 @@ const ItemGrid = () => {
       </Flex>
     );
   }
-  if (!isLoading && data) {
-     sortedData = [...data].sort((a, b) => {
+  if (data) {
+     sortedData = data.sort((a, b) => {
         if (a[order] < b[order]) {
             return (order === "name")? -1:1 
         }
@@ -53,6 +54,12 @@ const ItemGrid = () => {
     // Use sortedData as needed
 }
 
+if (sortedData) {
+  sotedAndFilteredData = (filter === "ALL")?  sortedData : sortedData.filter((item)=>(item.category === filter))
+ // Use sortedData as needed
+}
+
+
   return (
     <SimpleGrid
       maxWidth="1100px"
@@ -61,7 +68,7 @@ const ItemGrid = () => {
       columns={{ sm: 1, md: 2, lg: 3 }}
       spacing={10}
     >
-      {sortedData?.map((item) => (
+      {sotedAndFilteredData?.map((item) => (
         <ItemCard key={item._id} item={item}></ItemCard>
       ))}
     </SimpleGrid>

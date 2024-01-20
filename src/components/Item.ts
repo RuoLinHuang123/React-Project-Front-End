@@ -3,6 +3,7 @@ interface Item {
   name: string;
   picUrl: string;
   mass: number;
+  category: "Planet"| "Dwarf Planet"| "Moon"
 }
 
 export default Item;
