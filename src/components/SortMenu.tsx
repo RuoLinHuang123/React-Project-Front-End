@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import useSort from "./Sort";
 
-const NavMenu = () => {
+const SortMenu = () => {
   const { order, setOrder } = useSort();
 
   const handleMenuClick = (value: "name" | "mass") => {
@@ -35,4 +35,4 @@ const NavMenu = () => {
   );
 };
 
-export default NavMenu;
+export default SortMenu;

@@ -1,11 +1,10 @@
-import FilterBar from "../components/FilterBar";
+import FilterAndSortBar from "../components/FilterAndSortBar";
 import ItemGrid from "../components/ItemGrid";
-
 
 function HomePage() {
   return (
     <>
-      <FilterBar></FilterBar>
+      <FilterAndSortBar></FilterAndSortBar>
       <ItemGrid></ItemGrid>
     </>
   );
