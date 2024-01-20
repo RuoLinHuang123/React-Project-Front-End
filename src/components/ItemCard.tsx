@@ -7,7 +7,7 @@ interface Props {
 const ItemCard = ({ item }: Props) => {
   return (
     <Card borderRadius={20} overflow='hidden' cursor="pointer" transition="all 0.2s" _hover={{ bg: "gray.100" ,transform: "scale(1.03)"}}>
-      <Image src={item.picUrl} />
+      <Image src={item.picUrl} objectFit="cover" height="100%" width="100%" />
       <CardBody>
         <Flex justifyContent="center">
           <Heading>{item.name}</Heading>

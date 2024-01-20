@@ -1,19 +1,35 @@
-import { HamburgerIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Menu,
   MenuButton,
-  IconButton,
+  Button,
   MenuList,
   MenuItem,
+  Box,
 } from "@chakra-ui/react";
+import useSort from "./Sort";
 
 const NavMenu = () => {
+  const { order, setOrder } = useSort();
+
+  const handleMenuClick = (value: "name" | "mass") => {
+    setOrder(value);
+  };
+
   return (
     <Menu>
-      <MenuButton as={IconButton} icon={<HamburgerIcon />}></MenuButton>
+      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+        Sort
+      </MenuButton>
       <MenuList>
-        <MenuItem>Action One</MenuItem>
-        <MenuItem>Action Two</MenuItem>
+        <MenuItem onClick={() => handleMenuClick("name")}>
+          <Box>Name</Box>
+          {order === "name" && <Box marginLeft="auto">(Selected)</Box>}
+        </MenuItem>
+        <MenuItem onClick={() => handleMenuClick("mass")}>
+          <Box>Mass</Box>
+          {order === "mass" && <Box marginLeft="auto">(Selected)</Box>}
+        </MenuItem>
       </MenuList>
     </Menu>
   );

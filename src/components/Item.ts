@@ -1,7 +1,8 @@
 interface Item {
-  id: number;
+  _id: string;
   name: string;
   picUrl: string;
+  mass: number;
 }
 
 export default Item;
