@@ -1,5 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react";
 import useFilter from "./Filter";
+import NavMenu from "./NavMenu";
 
 const FilterBar = () => {
   const { filter, setFilter } = useFilter();
@@ -10,8 +11,6 @@ const FilterBar = () => {
   return (
     <Flex
       justifyContent="space-between"
-      borderTop="1px"
-      borderColor="gray.200"
       width="100%"
       maxWidth="1200px"
       mx="auto"
@@ -60,6 +59,10 @@ const FilterBar = () => {
         backgroundColor={filter == "Moon" ? "gray.100" : "initial"}
       >
         Moon
+      </Box>
+      <Box marginTop="2"
+      >
+        <NavMenu></NavMenu>
       </Box>
     </Flex>
   );
