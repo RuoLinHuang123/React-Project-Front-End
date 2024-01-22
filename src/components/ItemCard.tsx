@@ -1,5 +1,6 @@
 import { Card, CardBody, Flex, Heading, Image } from "@chakra-ui/react";
 import Item from "./Item";
+import { Link } from "react-router-dom";
 
 interface Props {
   item: Item;
@@ -7,10 +8,10 @@ interface Props {
 const ItemCard = ({ item }: Props) => {
   return (
     <Card borderRadius={20} overflow='hidden' cursor="pointer" transition="all 0.2s" _hover={{ bg: "gray.100" ,transform: "scale(1.03)"}}>
-      <Image src={item.picUrl} objectFit="cover" height="100%" width="100%" />
+      <Image src={item.picUrl} objectFit="cover" height="100%" width="100%"/>
       <CardBody>
         <Flex justifyContent="center">
-          <Heading>{item.name}</Heading>
+          <Heading><Link to={'/item/' + item.name}>{item.name}</Link></Heading>
         </Flex>
       </CardBody>
     </Card>
