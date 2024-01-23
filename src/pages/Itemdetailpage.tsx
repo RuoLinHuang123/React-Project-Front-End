@@ -37,7 +37,7 @@ const Itemdetailpage = () => {
   }
   if (isLoading || !data) {
     return (
-      <Flex justifyContent="center">
+      <Flex mt = '10' justifyContent="center">
         <Spinner
           thickness="4px"
           speed="0.65s"
@@ -51,23 +51,31 @@ const Itemdetailpage = () => {
 
   return (
     <Grid
-      templateAreas={`"title title"
-                  "img img"
-                  "pro des"`}
-      gridTemplateColumns={"1fr 2fr"}
-      maxWidth="1200px"
-      mx="auto"
-      padding={10}
+    templateAreas={{
+      base: `"title"
+             "img"
+             "pro"
+             "des"`,
+      md: `"title title"
+           "img img"
+           "pro des"`
+    }}
+    gridTemplateRows={{ base: "auto auto auto", md: "auto auto auto" }}
+    gridTemplateColumns={{ base: "1fr", md: "1fr 2fr" }}
+    maxWidth="1200px"
+    mx="auto"
+    padding={10}
     >
+
       <GridItem mb="10" area={"title"}>
         <Flex justifyContent="center">
           <Heading>{data?.name}</Heading>
         </Flex>
       </GridItem>
-      <GridItem mb="10" area={"img"}>
-        <Image borderRadius="20" src={data?.detailPicUrl} alt="Picture"></Image>
+      <GridItem mb="10" display="flex" justifyContent="center" area={"img"}>
+        <Image borderRadius="20" w="70%" src={data?.detailPicUrl} alt="Picture"></Image>
       </GridItem>
-      <GridItem area={"pro"}>
+      <GridItem mb="10" area={"pro"}>
         <Heading fontSize='medium' marginBottom='3'>Properties</Heading>
         <UnorderedList>
           {Object.keys(data?.properties).map((key) => (

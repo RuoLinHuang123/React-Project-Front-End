@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import NavTitle from "./NavTitle";
+import Navmenu from "./Navmenu";
 
 export const NavBar = () => {
   return (
@@ -10,8 +11,9 @@ export const NavBar = () => {
       mx="auto"
       padding="10px"
       borderBottom="1px"
-      borderColor="gray.200"
+      borderColor="rgba(255, 255, 255, 0.2)"
     >
+      <Navmenu></Navmenu>
       <Flex width="100%" justifyContent="center">
         <NavTitle />
       </Flex>
