@@ -3,6 +3,7 @@ import HomePage from "./pages/Homepage";
 import Layout from "./pages/Layout";
 import Itemdetailpage from "./pages/Itemdetailpage";
 import SubmitItem from "./components/SubmitItem";
+import SubmitDetailPage from "./pages/SubmitDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: "submit",
         element: <SubmitItem />,
+      },
+      {
+        path: "submitDetail",
+        element: <SubmitDetailPage />,
       },
     ],
   },

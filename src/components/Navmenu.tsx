@@ -19,6 +19,7 @@ const Navmenu = () => {
       />
       <MenuList>
         <MenuItem><Link to='/submit'>Submit New Item</Link></MenuItem>
+        <MenuItem><Link to='/submitDetail'>Submit Detail for Item</Link></MenuItem>
       </MenuList>
     </Menu>
   );

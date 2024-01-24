@@ -78,9 +78,9 @@ const Itemdetailpage = () => {
       <GridItem mb="10" area={"pro"}>
         <Heading fontSize='medium' marginBottom='3'>Properties</Heading>
         <UnorderedList>
-          {Object.keys(data?.properties).map((key) => (
+          {data?.properties.map((element) => (
             <ListItem>
-              {key}: {(data?.properties)[key]}
+              {element.name + ":" + element.value}
             </ListItem>
           ))}
         </UnorderedList>
