@@ -18,8 +18,8 @@ const Navmenu = () => {
         variant="outline"
       />
       <MenuList>
-        <MenuItem><Link to='/submit'>Submit New Item</Link></MenuItem>
-        <MenuItem><Link to='/submitDetail'>Submit Detail for Item</Link></MenuItem>
+        <Link to='/submit'><MenuItem>Submit New Item</MenuItem></Link>
+        <Link to='/submitDetail'><MenuItem>Submit Detail for Item</MenuItem></Link>
       </MenuList>
     </Menu>
   );

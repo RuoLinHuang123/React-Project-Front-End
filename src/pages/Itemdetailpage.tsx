@@ -35,9 +35,9 @@ const Itemdetailpage = () => {
       </Box>
     );
   }
-  if (isLoading || !data) {
+  if (isLoading) {
     return (
-      <Flex mt = '10' justifyContent="center">
+      <Flex mt="10" justifyContent="center">
         <Spinner
           thickness="4px"
           speed="0.65s"
@@ -49,38 +49,55 @@ const Itemdetailpage = () => {
     );
   }
 
+  if (!isLoading && !data) {
+    return (
+      <Flex mt='10' justifyContent="center">
+        <Text>This item doesn't exist or doesn't have a detail page.</Text>
+      </Flex>
+    );
+  }
+
   return (
     <Grid
-    templateAreas={{
-      base: `"title"
+      templateAreas={{
+        base: `"title"
              "img"
              "pro"
              "des"`,
-      md: `"title title"
+        md: `"title title"
            "img img"
-           "pro des"`
-    }}
-    gridTemplateRows={{ base: "auto auto auto", md: "auto auto auto" }}
-    gridTemplateColumns={{ base: "1fr", md: "1fr 2fr" }}
-    maxWidth="1200px"
-    mx="auto"
-    padding={10}
+           "pro des"`,
+      }}
+      gridTemplateRows={{ base: "auto auto auto", md: "auto auto auto" }}
+      gridTemplateColumns={{ base: "1fr", md: "1fr 2fr" }}
+      maxWidth="1200px"
+      mx="auto"
+      padding={10}
     >
-
       <GridItem mb="10" area={"title"}>
         <Flex justifyContent="center">
           <Heading>{data?.name}</Heading>
         </Flex>
       </GridItem>
       <GridItem mb="10" display="flex" justifyContent="center" area={"img"}>
-        <Image borderRadius="20" w="70%" src={data?.detailPicUrl} alt="Picture"></Image>
+        <Image
+          borderRadius="20"
+          w="70%"
+          src={data?.detailPicUrl}
+          alt="Picture"
+        ></Image>
       </GridItem>
-      <GridItem mb="10" area={"pro"}>
-        <Heading fontSize='medium' marginBottom='3'>Properties</Heading>
+      <GridItem mb="10" mr="10" area={"pro"}>
+        <Heading fontSize="medium" marginBottom="3">
+          Properties
+        </Heading>
         <UnorderedList>
-          {data?.properties.map((element) => (
-            <ListItem>
-              {element.name + ":" + element.value}
+          {data?.properties.map((element, index) => (
+            <ListItem key={index}>
+              <Flex justifyContent="space-between">
+                <Text>{element.name + ":"}</Text>
+                <Text>{element.value}</Text>
+              </Flex>
             </ListItem>
           ))}
         </UnorderedList>
