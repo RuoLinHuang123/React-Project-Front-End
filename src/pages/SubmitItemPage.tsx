@@ -13,8 +13,11 @@ import {
 import { FieldValues, useForm, useFieldArray } from "react-hook-form";
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Item from "../components/Item";
 
 const SubmitItemPage = () => {
+  const navigate = useNavigate();
   const { register, handleSubmit, control } = useForm();
   const [err, setErr] = useState<string>("");
 
@@ -26,12 +29,14 @@ const SubmitItemPage = () => {
   const onSubmit = async (data: FieldValues) => {
     console.log(data);
     try {
-      const response = await axios.post(
+      const response = await axios.post<Item>(
         "http://localhost:3000/api/itemSubmission",
         data
       );
       // Handle success here, e.g., show a success message
       console.log("Success:", response.data);
+      const dirrection = '/item/' + response.data.name
+      navigate(dirrection);
     } catch (error) {
       const errobject = error as AxiosError;
       setErr(errobject.response?.data as string);
@@ -135,11 +140,7 @@ const SubmitItemPage = () => {
         <FormLabel htmlFor="picUrl" mt="4">
           Url for Page Picture
         </FormLabel>
-        <Input
-          {...register("detailPicUrl")}
-          id="picUrl"
-          type="url"
-        />
+        <Input {...register("detailPicUrl")} id="picUrl" type="url" />
 
         <FormLabel htmlFor="message" mt="4">
           Description

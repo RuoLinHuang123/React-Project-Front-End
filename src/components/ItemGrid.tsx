@@ -51,12 +51,10 @@ const ItemGrid = () => {
         }
         return 0;
     });
-    // Use sortedData as needed
 }
 
 if (sortedData) {
   sotedAndFilteredData = (filter === "ALL")?  sortedData : sortedData.filter((item)=>(item.category === filter))
- // Use sortedData as needed
 }
 
 
