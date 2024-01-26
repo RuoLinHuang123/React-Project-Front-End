@@ -103,6 +103,13 @@ const SubmitItemPage = () => {
                 {...register(`properties.${index}.value`)}
                 isRequired
               />
+              <Text mt="2">Unit</Text>
+              <Input
+                mb="5"
+                {...register(`properties.${index}.unit`)}
+                placeholder="Optional"
+                maxWidth="200"
+              />
               <Button minW="60px" type="button" onClick={() => remove(index)}>
                 Delete
               </Button>
@@ -119,11 +126,11 @@ const SubmitItemPage = () => {
           Add
         </Button>
       </Flex>
-      <FormControl id="submit-form-top">
+      <FormControl id="submit-form-bottom" isRequired>
         <FormLabel htmlFor="picUrl" mt="4">
           Url for Card Picture
         </FormLabel>
-        <Input {...register("picUrl")} id="picUrl" type="url" isRequired />
+        <Input {...register("picUrl")} id="picUrl" type="url" />
 
         <FormLabel htmlFor="picUrl" mt="4">
           Url for Page Picture
@@ -132,7 +139,6 @@ const SubmitItemPage = () => {
           {...register("detailPicUrl")}
           id="picUrl"
           type="url"
-          isRequired
         />
 
         <FormLabel htmlFor="message" mt="4">
@@ -142,7 +148,6 @@ const SubmitItemPage = () => {
           id="description"
           placeholder="Enter the description"
           {...register("description")}
-          isRequired
         />
 
         <Flex mt="6" justifyContent="flex-end">

@@ -9,6 +9,7 @@ interface ItemDetail {
   interface property{
     name: string;
     value: string;
+    unit?: string;
   }
   
   export default ItemDetail;

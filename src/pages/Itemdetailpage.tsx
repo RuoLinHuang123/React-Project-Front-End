@@ -51,7 +51,7 @@ const Itemdetailpage = () => {
 
   if (!isLoading && !data) {
     return (
-      <Flex mt='10' justifyContent="center">
+      <Flex mt="10" justifyContent="center">
         <Text>This item doesn't exist or doesn't have a detail page.</Text>
       </Flex>
     );
@@ -96,7 +96,10 @@ const Itemdetailpage = () => {
             <ListItem key={index}>
               <Flex justifyContent="space-between">
                 <Text>{element.name + ":"}</Text>
-                <Text>{element.value}</Text>
+                <Text>
+                  {element.value}
+                  {element.unit ? " " + element.unit : ""}
+                </Text>
               </Flex>
             </ListItem>
           ))}
