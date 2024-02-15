@@ -15,6 +15,7 @@ import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Item from "../components/Item";
+import Cookies from "js-cookie";
 
 const SubmitItemPage = () => {
   const navigate = useNavigate();
@@ -29,13 +30,19 @@ const SubmitItemPage = () => {
   const onSubmit = async (data: FieldValues) => {
     console.log(data);
     try {
+      const userToken = Cookies.get("User-Token");
       const response = await axios.post<Item>(
         "http://localhost:3000/api/itemSubmission",
-        data
+        data,
+        {
+          headers: {
+            'User-Token': `${userToken}`,
+          },
+        }
       );
       // Handle success here, e.g., show a success message
       console.log("Success:", response.data);
-      const dirrection = '/item/' + response.data.name
+      const dirrection = "/item/" + response.data.name;
       navigate(dirrection);
     } catch (error) {
       const errobject = error as AxiosError;
