@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { Box } from "@chakra-ui/react";
-import LoginModal from "../components/UserModal";
+import UserModal from "../components/UserModal";
 
 const Layout = () => {
   return (
@@ -14,7 +14,7 @@ const Layout = () => {
       minHeight="100vh"
     >
       <NavBar></NavBar>
-      <LoginModal></LoginModal>
+      <UserModal></UserModal>
       <Outlet></Outlet>
     </Box>
   );

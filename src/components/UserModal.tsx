@@ -17,9 +17,9 @@ import useLoginPop from "./LoginPopState";
 import { useState } from "react";
 import { useForm, FieldValues } from "react-hook-form";
 import axios, { AxiosError } from "axios";
-import Cookie from 'js-cookie'
+import Cookie from "js-cookie";
 
-const LoginModal = () => {
+const UserModal = () => {
   const { popState, setPopState } = useLoginPop();
   const [formState, setformState] = useState<string>("Login");
   const [err, setErr] = useState<string>("");
@@ -53,14 +53,14 @@ const LoginModal = () => {
       delete data.name;
     }
     try {
-      const response = await axios.post<string>(
+      const response = await axios.post(
         "http://localhost:3000/api/" + direction,
         data
       );
       // Handle success here, e.g., show a success message
-      console.log("Success:", response.data);
+      console.log("Success:", response.data.token);
       setErr("");
-      Cookie.set('User-Token', response.data, { expires: 7 });
+      Cookie.set("User-Token", response.data.token, { expires: 7 });
       close();
     } catch (error) {
       const errobject = error as AxiosError;
@@ -113,7 +113,7 @@ const LoginModal = () => {
             </Button>
           </ModalFooter>
         </form>
-        <Flex margin='5' justifyContent="flex-end">
+        <Flex margin="5" justifyContent="flex-end">
           <Text color="red">{err}</Text>
         </Flex>
       </ModalContent>
@@ -121,4 +121,4 @@ const LoginModal = () => {
   );
 };
 
-export default LoginModal;
+export default UserModal;

@@ -26,6 +26,7 @@ const FilterBox = ({ filterName }: Props) => {
       backgroundColor={
         filter == filterName ? "rgba(255, 255, 255, 0.2)" : "initial"
       }
+      sx={{ caretColor: "transparent" }}
     >
       {filterName}
     </Box>

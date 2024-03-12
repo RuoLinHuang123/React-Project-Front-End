@@ -9,14 +9,20 @@ import {
   Heading,
   UnorderedList,
   ListItem,
+  Button,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 import ItemDetail from "../components/ItemDetail";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const Itemdetailpage = () => {
   const { name } = useParams();
+  const navigate = useNavigate();
+  const [delErr, setDelErr] = useState<string>("");
 
   const { data, error, isLoading } = useQuery<ItemDetail, Error>({
     queryKey: ["itemDetails", name],
@@ -48,14 +54,26 @@ const Itemdetailpage = () => {
       </Flex>
     );
   }
-
-  if (!isLoading && !data) {
-    return (
-      <Flex mt="10" justifyContent="center">
-        <Text>This item doesn't exist or doesn't have a detail page.</Text>
-      </Flex>
-    );
-  }
+  
+  const onSubmit = async () => {
+    try {
+      const userToken = Cookies.get("User-Token");
+      const response = await axios.delete(
+        `http://localhost:3000/api/itemDelete?name=${name}`,
+        {
+          headers: {
+            "User-Token": `${userToken}`,
+          },
+        }
+      );
+      // Handle success here, e.g., show a success message
+      console.log("Success:", response.data);
+      navigate("/");
+    } catch (error) {
+      const errobject = error as AxiosError;
+      setDelErr(errobject.response?.data as string);
+    }
+  };
 
   return (
     <Grid
@@ -63,10 +81,12 @@ const Itemdetailpage = () => {
         base: `"title"
              "img"
              "pro"
-             "des"`,
+             "des"
+             "del"`,
         md: `"title title"
            "img img"
-           "pro des"`,
+           "pro des"
+           "del del"`,
       }}
       gridTemplateRows={{ base: "auto auto auto", md: "auto auto auto" }}
       gridTemplateColumns={{ base: "1fr", md: "1fr 2fr" }}
@@ -76,10 +96,16 @@ const Itemdetailpage = () => {
     >
       <GridItem mb="10" area={"title"}>
         <Flex justifyContent="center">
-          <Heading>{data?.name}</Heading>
+          <Heading sx={{ caretColor: "transparent" }}>{data?.name}</Heading>
         </Flex>
       </GridItem>
-      <GridItem mb="10" display="flex" justifyContent="center" area={"img"}>
+      <GridItem
+        mb="10"
+        display="flex"
+        justifyContent="center"
+        area={"img"}
+        userSelect="none"
+      >
         <Image
           borderRadius="20"
           w="70%"
@@ -105,8 +131,16 @@ const Itemdetailpage = () => {
           ))}
         </UnorderedList>
       </GridItem>
-      <GridItem area={"des"}>
+      <GridItem mb="10" area={"des"}>
         <Text>{data?.description}</Text>
+      </GridItem>
+      <GridItem area={"del"}>
+        <Flex direction="column" alignItems="flex-end">
+          <Button onClick={onSubmit}>Delete</Button>
+          <Text mt="5" color="red">
+            {delErr}
+          </Text>
+        </Flex>
       </GridItem>
     </Grid>
   );

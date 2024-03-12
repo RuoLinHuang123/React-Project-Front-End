@@ -1,51 +1,63 @@
+import { jwtDecode } from "jwt-decode";
 import { Button, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import useLoginPop from "./LoginPopState";
-import Cookies from "js-cookie";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import Cookie from "js-cookie";
+import axios, { AxiosError } from "axios";
 
 const UserButton = () => {
   const { setPopState } = useLoginPop();
-  const userToken = Cookies.get('User-Token');
-
-  interface Name {
-    name: string;
-  }
-
-  const { data, error, isLoading } = useQuery<Name, Error>({
-    queryKey: ["name"],
-    queryFn: () =>
-      axios
-        .get<Name>("http://localhost:3000/api/userName", {
-          headers: {
-            // Include the token in the request headers
-            'User-Token': `${userToken}`,
-          },
-        })
-        .then((res) => res.data),
-  });
-
+  const userToken = Cookie.get("User-Token");
 
   function handleLoginClick() {
     setPopState();
   }
 
+  interface TokenPayload {
+    _id: string;
+    name: string;
+    isAdmin: boolean;
+  }
+
+  let userName = "";
+  let isAdmin = false;
+  if (userToken) {
+    const decodedToken = jwtDecode<TokenPayload>(userToken);
+    userName = decodedToken.name;
+    isAdmin = decodedToken.isAdmin;
+  }
+
   function handleLogoutClick() {
-    Cookies.remove('User-Token');
+    Cookie.remove("User-Token");
+    window.location.reload();
+  }
+
+  async function handleUpgradeClick() {
+    const response = await axios.post(
+      `http://localhost:3000/api/updataToAdmin`,
+      {},
+      {
+        headers: {
+          "User-Token": `${userToken}`,
+        },
+      }
+    );
+    Cookie.set("User-Token", response.data.token, { expires: 7 });
     window.location.reload();
   }
 
   if (userToken) {
-    if (isLoading || error){
-      return <Button>Loading...</Button>;
-    }
     return (
       <Menu>
-        <MenuButton as={Button}>
-          {data?.name}
+        <MenuButton paddingRight="6" paddingLeft="4" as={Button}>
+          {userName}
         </MenuButton>
         <MenuList>
-          <MenuItem onClick={() => handleLogoutClick()} justifyContent='center'>Logout</MenuItem>
+          {isAdmin ? (
+            <MenuItem>Admin</MenuItem>
+          ) : (
+            <MenuItem onClick={() => handleUpgradeClick()}>Upgrade to Admin</MenuItem>
+          )}
+          <MenuItem onClick={() => handleLogoutClick()}>Logout</MenuItem>
         </MenuList>
       </Menu>
     );
